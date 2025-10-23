@@ -8,7 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Settings, Save } from 'lucide-react'
 
 export default function SystemSettings() {
-  const { updateSystemSetting, loading } = useAdmin()
+  const { updateSystemSettings, loading } = useAdmin()
   const [settings, setSettings] = useState({
     commissionRate: '5.0',
     taxRate: '10.0',
@@ -18,7 +18,7 @@ export default function SystemSettings() {
 
   const handleSave = async (settingKey: string, value: string) => {
     try {
-      await updateSystemSetting(settingKey, value)
+      await updateSystemSettings({ [settingKey]: value })
     } catch (error) {
       console.error('Error updating setting:', error)
     }

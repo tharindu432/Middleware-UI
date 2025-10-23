@@ -5,9 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-// @ts-ignore
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-// @ts-ignore
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Search, Ticket } from 'lucide-react'
 import { TicketResponse } from '@/types'
@@ -78,7 +76,7 @@ export default function EmployeeTickets() {
                 id="ticketNumber"
                 placeholder="Enter ticket number"
                 value={ticketNumberSearch}
-                onChange={(e) => setTicketNumberSearch(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTicketNumberSearch(e.target.value)}
               />
             </div>
             <div className="space-y-2">
@@ -151,9 +149,9 @@ export default function EmployeeTickets() {
                     <TableCell className="font-medium">{ticket.ticketNumber}</TableCell>
                     <TableCell>{ticket.bookingId}</TableCell>
                     <TableCell>{ticket.passengerId}</TableCell>
-                    <TableCell>{formatCurrency(ticket.fare)}</TableCell>
-                    <TableCell>{formatCurrency(ticket.taxes)}</TableCell>
-                    <TableCell className="font-semibold">{formatCurrency(ticket.total)}</TableCell>
+                    <TableCell>{formatCurrency(ticket.fareAmount)}</TableCell>
+                    <TableCell>{formatCurrency(ticket.taxAmount)}</TableCell>
+                    <TableCell className="font-semibold">{formatCurrency(ticket.totalAmount)}</TableCell>
                     <TableCell>{getStatusBadge(ticket.status)}</TableCell>
                     <TableCell>
                       <div className="text-sm">{formatDateTime(ticket.issuedAt)}</div>

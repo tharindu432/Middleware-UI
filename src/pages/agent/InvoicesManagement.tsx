@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 // @ts-ignore
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { FileText, Download, Eye, DollarSign, Calendar, CheckCircle, Clock, XCircle } from 'lucide-react'
+import { FileText, Download, DollarSign, Calendar, CheckCircle, Clock, XCircle } from 'lucide-react'
 import { InvoiceResponse } from '@/types'
 import { formatCurrency, formatDateTime } from '@/lib/utils'
 import toast from 'react-hot-toast'

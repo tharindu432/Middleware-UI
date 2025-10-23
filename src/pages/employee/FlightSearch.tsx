@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-// @ts-ignore
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Search, ArrowRight, Users, Plane } from 'lucide-react'
 import { FlightResponse } from '@/types'
@@ -104,7 +103,7 @@ export default function EmployeeFlightSearch() {
                   id="origin"
                   placeholder="e.g., JFK, LAX"
                   value={origin}
-                  onChange={(e) => setOrigin(e.target.value.toUpperCase())}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setOrigin(e.target.value.toUpperCase())}
                   maxLength={3}
                   required
                 />
@@ -115,7 +114,7 @@ export default function EmployeeFlightSearch() {
                   id="destination"
                   placeholder="e.g., JFK, LAX"
                   value={destination}
-                  onChange={(e) => setDestination(e.target.value.toUpperCase())}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDestination(e.target.value.toUpperCase())}
                   maxLength={3}
                   required
                 />
@@ -129,7 +128,7 @@ export default function EmployeeFlightSearch() {
                   id="departureDate"
                   type="date"
                   value={departureDate}
-                  onChange={(e) => setDepartureDate(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDepartureDate(e.target.value)}
                   min={new Date().toISOString().split('T')[0]}
                   required
                 />
@@ -141,7 +140,7 @@ export default function EmployeeFlightSearch() {
                     id="returnDate"
                     type="date"
                     value={returnDate}
-                    onChange={(e) => setReturnDate(e.target.value)}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReturnDate(e.target.value)}
                     min={departureDate}
                   />
                 </div>
@@ -156,7 +155,7 @@ export default function EmployeeFlightSearch() {
                   min="1"
                   max="9"
                   value={adults}
-                  onChange={(e) => setAdults(parseInt(e.target.value))}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAdults(parseInt(e.target.value))}
                 />
               </div>
               <div className="space-y-2">
@@ -166,7 +165,7 @@ export default function EmployeeFlightSearch() {
                   min="0"
                   max="9"
                   value={children}
-                  onChange={(e) => setChildren(parseInt(e.target.value))}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setChildren(parseInt(e.target.value))}
                 />
               </div>
               <div className="space-y-2">
@@ -176,7 +175,7 @@ export default function EmployeeFlightSearch() {
                   min="0"
                   max="9"
                   value={infants}
-                  onChange={(e) => setInfants(parseInt(e.target.value))}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInfants(parseInt(e.target.value))}
                 />
               </div>
             </div>

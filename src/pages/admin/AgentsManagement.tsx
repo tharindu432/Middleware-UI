@@ -22,8 +22,8 @@ export default function AgentsManagement() {
     email: '',
     phone: '',
     password: '',
-    creditLimit: undefined as any,
-    bankGurantee: undefined as any,
+    creditLimit: 0,
+    bankGurantee: 0,
     defaultCurrency: 'USD',
     role: 'AGENT_MANAGER',
   })
@@ -154,8 +154,8 @@ export default function AgentsManagement() {
                     placeholder="0.00"
                     value={formData.creditLimit || ''}
                     onChange={(e) => {
-                      const value = e.target.value === '' ? undefined : parseFloat(e.target.value);
-                      setFormData({ ...formData, creditLimit: isNaN(value as any) ? undefined : value });
+                      const value = e.target.value === '' ? 0 : parseFloat(e.target.value);
+                      setFormData({ ...formData, creditLimit: isNaN(value) ? 0 : value });
                     }}
                     required
                   />
@@ -169,8 +169,8 @@ export default function AgentsManagement() {
                     placeholder="0.00"
                     value={formData.bankGurantee || ''}
                     onChange={(e) => {
-                      const value = e.target.value === '' ? undefined : parseFloat(e.target.value);
-                      setFormData({ ...formData, bankGurantee: isNaN(value as any) ? undefined : value });
+                      const value = e.target.value === '' ? 0 : parseFloat(e.target.value);
+                      setFormData({ ...formData, bankGurantee: isNaN(value) ? 0 : value });
                     }}
                     required
                   />

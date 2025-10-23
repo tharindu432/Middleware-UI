@@ -7,12 +7,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CheckCircle, XCircle } from 'lucide-react'
-import { CreditTransaction } from '@/types'
+import { CreditTopupApproval } from '@/types'
 import { formatCurrency, formatDateTime } from '@/lib/utils'
 
 export default function CreditApprovals() {
   const { approveCreditTopup, rejectCreditTopup, getPendingCreditApprovals, loading } = useAdmin()
-  const [topups, setTopups] = useState<CreditTransaction[]>([])
+  const [topups, setTopups] = useState<CreditTopupApproval[]>([])
 
   useEffect(() => {
     loadTopups()
@@ -38,7 +38,7 @@ export default function CreditApprovals() {
 
   const handleReject = async (topupId: string) => {
     try {
-      await rejectCreditTopup(topupId)
+      await rejectCreditTopup(topupId, 'Rejected by admin')
       loadTopups()
     } catch (error) {
       console.error('Error rejecting top-up:', error)

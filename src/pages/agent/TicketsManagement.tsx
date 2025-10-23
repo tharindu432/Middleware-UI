@@ -251,9 +251,9 @@ export default function TicketsManagement() {
                     <TableCell className="font-medium">{ticket.ticketNumber}</TableCell>
                     <TableCell>{ticket.bookingId}</TableCell>
                     <TableCell>{ticket.passengerId}</TableCell>
-                    <TableCell>{formatCurrency(ticket.fare)}</TableCell>
-                    <TableCell>{formatCurrency(ticket.taxes)}</TableCell>
-                    <TableCell className="font-semibold">{formatCurrency(ticket.total)}</TableCell>
+                    <TableCell>{formatCurrency(ticket.fareAmount)}</TableCell>
+                    <TableCell>{formatCurrency(ticket.taxAmount)}</TableCell>
+                    <TableCell className="font-semibold">{formatCurrency(ticket.totalAmount)}</TableCell>
                     <TableCell>{getStatusBadge(ticket.status)}</TableCell>
                     <TableCell>
                       <div className="text-sm">{formatDateTime(ticket.issuedAt)}</div>

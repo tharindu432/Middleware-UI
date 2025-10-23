@@ -263,12 +263,15 @@ export interface DashboardStats {
 // Credit Approval Types
 export interface CreditTopupApproval {
   topupId: string
+  transactionId: string
   agentId: string
   agentName: string
   amount: number
   requestNotes: string
+  type: 'TOPUP' | 'CREDIT' | 'DEBIT'
   status: 'PENDING' | 'APPROVED' | 'REJECTED'
   requestedAt: string
+  createdAt: string
   processedAt?: string
   processedBy?: string
   rejectionReason?: string
