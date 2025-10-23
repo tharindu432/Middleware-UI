@@ -67,7 +67,7 @@ export interface Employee {
   firstName: string
   lastName: string
   email: string
-  role: UserRole
+  role: 'EMPLOYEE'
   agentId: string
   isActive: boolean
   createdAt: string
@@ -78,7 +78,7 @@ export interface EmployeeRequest {
   lastName: string
   email: string
   password?: string
-  role: UserRole
+  role: 'EMPLOYEE'
 }
 
 // Flight Types
@@ -94,18 +94,29 @@ export interface FlightSearchRequest {
 }
 
 export interface FlightResponse {
+  flightId?: string
   availabilityId: string
+  airlineCode?: string
+  airline?: string
+  flightNumber: string
   origin: string
   destination: string
   departureDate: string
+  departureDateTime?: string
   arrivalDate: string
-  airline: string
-  flightNumber: string
+  arrivalDateTime?: string
   cabinClass: string
-  totalPrice: number
-  currency: string
   availableSeats: number
-  duration: string
+  baseFare?: number
+  tax?: number
+  totalFare?: number
+  totalPrice?: number
+  currency: string
+  fareBasis?: string
+  bookingClass?: string
+  isRefundable?: boolean
+  baggageAllowance?: string
+  duration?: string
 }
 
 // Booking Types
@@ -134,6 +145,9 @@ export interface BookingResponse {
   status: string
   totalAmount: number
   currency: string
+  contactEmail: string
+  contactPhone: string
+  commission?: number
   passengers: Passenger[]
   createdAt: string
   flight: FlightResponse
@@ -144,12 +158,19 @@ export interface TicketResponse {
   ticketId: string
   ticketNumber: string
   bookingId: string
+  pnr: string
   passengerId: string
+  passenger?: Passenger
   status: string
   issuedAt: string
-  fare: number
-  taxes: number
-  total: number
+  issueDate?: string
+  fareAmount: number
+  taxAmount: number
+  totalAmount: number
+  currency: string
+  voidDate?: string
+  refundDate?: string
+  refundAmount?: number
 }
 
 export interface TicketIssueRequest {

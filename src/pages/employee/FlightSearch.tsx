@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useFlights } from '@/hooks/useFlights'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -7,12 +8,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 // @ts-ignore
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Search, ArrowRight, Users } from 'lucide-react'
+import { Search, ArrowRight, Users, Plane } from 'lucide-react'
 import { FlightResponse } from '@/types'
 import { formatCurrency } from '@/lib/utils'
 import toast from 'react-hot-toast'
 
 export default function EmployeeFlightSearch() {
+  const navigate = useNavigate()
   const { searchFlights, loading } = useFlights()
   const [searchResults, setSearchResults] = useState<FlightResponse[]>([])
   const [showResults, setShowResults] = useState(false)
@@ -55,6 +57,11 @@ export default function EmployeeFlightSearch() {
     } catch (error) {
       toast.error('Search failed')
     }
+  }
+
+  const handleBookFlight = (flight: FlightResponse) => {
+    // Navigate to employee booking page with flight details
+    navigate(`/employee/book-flight?availabilityId=${flight.availabilityId}`)
   }
 
   return (
@@ -197,51 +204,113 @@ export default function EmployeeFlightSearch() {
         </CardContent>
       </Card>
 
+      {/* Search Results */}
       {showResults && (
         <div className="space-y-4">
-          <h2 className="text-2xl font-bold">{searchResults.length} Flights Found</h2>
-          {searchResults.map((flight) => (
-            <Card key={flight.availabilityId}>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-4 mb-2">
-                      <Badge>{flight.airline}</Badge>
-                      <span className="text-sm text-gray-500">{flight.flightNumber}</span>
-                    </div>
-                    <div className="flex items-center gap-6">
-                      <div>
-                        <div className="text-2xl font-bold">{flight.origin}</div>
-                        <div className="text-sm text-gray-500">
-                          {new Date(flight.departureDate).toLocaleTimeString()}
-                        </div>
-                      </div>
-                      <div className="flex-1 flex flex-col items-center">
-                        <div className="text-sm text-gray-500">{flight.duration}</div>
-                        <ArrowRight className="h-5 w-5 text-primary" />
-                      </div>
-                      <div>
-                        <div className="text-2xl font-bold">{flight.destination}</div>
-                        <div className="text-sm text-gray-500">
-                          {new Date(flight.arrivalDate).toLocaleTimeString()}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-2 flex items-center gap-2 text-sm text-gray-600">
-                      <Users className="h-4 w-4" />
-                      {flight.availableSeats} seats
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-3xl font-bold text-primary">
-                      {formatCurrency(flight.totalPrice)}
-                    </div>
-                    <div className="text-sm text-gray-500">{flight.currency}</div>
-                  </div>
-                </div>
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold">
+              {searchResults.length} Flight{searchResults.length !== 1 ? 's' : ''} Found
+            </h2>
+            <Button variant="outline" onClick={() => setShowResults(false)}>
+              New Search
+            </Button>
+          </div>
+
+          {searchResults.length === 0 ? (
+            <Card>
+              <CardContent className="py-12 text-center text-gray-500">
+                <Plane className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                <p>No flights available for the selected criteria.</p>
+                <p className="text-sm mt-2">Try adjusting your search parameters.</p>
               </CardContent>
             </Card>
-          ))}
+          ) : (
+            <div className="space-y-4">
+              {searchResults.map((flight) => (
+                <Card key={flight.availabilityId} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+                      {/* Flight Info */}
+                      <div className="lg:col-span-8">
+                        <div className="flex items-center gap-4 mb-4">
+                          <div className="flex items-center gap-2">
+                            <Plane className="h-5 w-5 text-primary" />
+                            <span className="font-semibold text-lg">{flight.airline || flight.airlineCode}</span>
+                          </div>
+                          <Badge variant="secondary">{flight.flightNumber}</Badge>
+                          <Badge>{flight.cabinClass}</Badge>
+                        </div>
+
+                        <div className="flex items-center gap-6">
+                          {/* Departure */}
+                          <div className="text-center">
+                            <div className="text-2xl font-bold">{flight.origin}</div>
+                            <div className="text-sm text-gray-500">
+                              {new Date(flight.departureDateTime || flight.departureDate).toLocaleTimeString('en-US', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                              })}
+                            </div>
+                            <div className="text-xs text-gray-400">
+                              {new Date(flight.departureDateTime || flight.departureDate).toLocaleDateString()}
+                            </div>
+                          </div>
+
+                          {/* Duration */}
+                          <div className="flex-1 flex flex-col items-center">
+                            <div className="text-sm text-gray-500 mb-1">{flight.duration || 'N/A'}</div>
+                            <div className="w-full h-0.5 bg-gray-300 relative">
+                              <ArrowRight className="absolute -top-2.5 left-1/2 -translate-x-1/2 h-5 w-5 text-primary" />
+                            </div>
+                            <div className="text-xs text-gray-400 mt-1">Direct</div>
+                          </div>
+
+                          {/* Arrival */}
+                          <div className="text-center">
+                            <div className="text-2xl font-bold">{flight.destination}</div>
+                            <div className="text-sm text-gray-500">
+                              {new Date(flight.arrivalDateTime || flight.arrivalDate).toLocaleTimeString('en-US', {
+                                hour: '2-digit',
+                                minute: '2-digit',
+                              })}
+                            </div>
+                            <div className="text-xs text-gray-400">
+                              {new Date(flight.arrivalDateTime || flight.arrivalDate).toLocaleDateString()}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-4 flex items-center gap-4 text-sm text-gray-600">
+                          <div className="flex items-center gap-1">
+                            <Users className="h-4 w-4" />
+                            <span>{flight.availableSeats} seats available</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Price and Book */}
+                      <div className="lg:col-span-4 flex flex-col items-end justify-center gap-4 lg:border-l lg:pl-6">
+                        <div className="text-right">
+                          <div className="text-sm text-gray-500">Total Price</div>
+                          <div className="text-3xl font-bold text-primary">
+                            {formatCurrency(flight.totalPrice || flight.totalFare || 0)}
+                          </div>
+                          <div className="text-xs text-gray-400">{flight.currency}</div>
+                        </div>
+                        <Button
+                          onClick={() => handleBookFlight(flight)}
+                          size="lg"
+                          className="w-full lg:w-auto"
+                        >
+                          Book Now
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </div>

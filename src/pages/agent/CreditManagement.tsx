@@ -10,7 +10,7 @@ import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger} from '@
 // @ts-ignore
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table'
 // @ts-ignore
-import {Textarea} from '@/components/ui/input'
+import {Textarea} from '@/components/ui/textarea'
 import {Wallet, TrendingUp, TrendingDown, Plus, History, DollarSign, ArrowUpCircle, ArrowDownCircle} from 'lucide-react'
 import {CreditTransaction} from '@/types'
 import {formatCurrency, formatDateTime} from '@/lib/utils'

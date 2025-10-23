@@ -14,8 +14,8 @@ export default function AgentLayout() {
   const navigation = [
     { name: 'Dashboard', href: '/agent/dashboard', icon: Plane },
     { name: 'Search Flights', href: '/agent/flights', icon: Plane },
-    { name: 'Bookings', href: '/agent/bookings', icon: Calendar },
-    { name: 'Tickets', href: '/agent/tickets', icon: Ticket },
+    { name: 'My Bookings', href: '/agent/my-bookings', icon: Calendar },
+    { name: 'My Tickets', href: '/agent/my-tickets', icon: Ticket },
     { name: 'Credit', href: '/agent/credit', icon: Wallet },
     { name: 'Invoices', href: '/agent/invoices', icon: FileText },
     { name: 'Payments', href: '/agent/payments', icon: CreditCard },

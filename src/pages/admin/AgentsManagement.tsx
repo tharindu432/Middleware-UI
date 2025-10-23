@@ -22,8 +22,8 @@ export default function AgentsManagement() {
     email: '',
     phone: '',
     password: '',
-    creditLimit: 0,
-    bankGurantee: 0,
+    creditLimit: undefined as any,
+    bankGurantee: undefined as any,
     defaultCurrency: 'USD',
     role: 'AGENT_MANAGER',
   })
@@ -43,7 +43,13 @@ export default function AgentsManagement() {
   const handleCreateAgent = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      await createAgent(formData)
+      // Ensure numeric fields are properly set
+      const submitData = {
+        ...formData,
+        creditLimit: formData.creditLimit || 0,
+        bankGurantee: formData.bankGurantee || 0,
+      }
+      await createAgent(submitData)
       setIsCreateDialogOpen(false)
       resetForm()
       loadAgents()
@@ -69,8 +75,8 @@ export default function AgentsManagement() {
       email: '',
       phone: '',
       password: '',
-      creditLimit: 0,
-      bankGurantee: 0,
+      creditLimit: undefined as any,
+      bankGurantee: undefined as any,
       defaultCurrency: 'USD',
       role: 'AGENT_MANAGER',
     })
@@ -144,8 +150,13 @@ export default function AgentsManagement() {
                   <Input
                     id="creditLimit"
                     type="number"
-                    value={formData.creditLimit}
-                    onChange={(e) => setFormData({ ...formData, creditLimit: Number(e.target.value) })}
+                    step="0.01"
+                    placeholder="0.00"
+                    value={formData.creditLimit || ''}
+                    onChange={(e) => {
+                      const value = e.target.value === '' ? undefined : parseFloat(e.target.value);
+                      setFormData({ ...formData, creditLimit: isNaN(value as any) ? undefined : value });
+                    }}
                     required
                   />
                 </div>
@@ -154,8 +165,13 @@ export default function AgentsManagement() {
                   <Input
                     id="bankGurantee"
                     type="number"
-                    value={formData.bankGurantee}
-                    onChange={(e) => setFormData({ ...formData, bankGurantee: Number(e.target.value) })}
+                    step="0.01"
+                    placeholder="0.00"
+                    value={formData.bankGurantee || ''}
+                    onChange={(e) => {
+                      const value = e.target.value === '' ? undefined : parseFloat(e.target.value);
+                      setFormData({ ...formData, bankGurantee: isNaN(value as any) ? undefined : value });
+                    }}
                     required
                   />
                 </div>

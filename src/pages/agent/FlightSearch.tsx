@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useFlights } from '@/hooks/useFlights'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -13,6 +14,7 @@ import { formatCurrency } from '@/lib/utils'
 import toast from 'react-hot-toast'
 
 export default function FlightSearch() {
+  const navigate = useNavigate()
   const { searchFlights, loading } = useFlights()
   const [searchResults, setSearchResults] = useState<FlightResponse[]>([])
   const [showResults, setShowResults] = useState(false)
@@ -63,11 +65,9 @@ export default function FlightSearch() {
     }
   }
 
-  // @ts-ignore
-    const handleBookFlight = (flight: FlightResponse) => {
+  const handleBookFlight = (flight: FlightResponse) => {
     // Navigate to booking page with flight details
-    toast.success('Redirecting to booking page...')
-    // TODO: Implement navigation to booking page
+    navigate(`/agent/book-flight?availabilityId=${flight.availabilityId}`)
   }
 
   return (
@@ -251,7 +251,7 @@ export default function FlightSearch() {
                         <div className="flex items-center gap-4 mb-4">
                           <div className="flex items-center gap-2">
                             <Plane className="h-5 w-5 text-primary" />
-                            <span className="font-semibold text-lg">{flight.airline}</span>
+                            <span className="font-semibold text-lg">{flight.airline || flight.airlineCode}</span>
                           </div>
                           <Badge variant="secondary">{flight.flightNumber}</Badge>
                           <Badge>{flight.cabinClass}</Badge>
@@ -262,19 +262,19 @@ export default function FlightSearch() {
                           <div className="text-center">
                             <div className="text-2xl font-bold">{flight.origin}</div>
                             <div className="text-sm text-gray-500">
-                              {new Date(flight.departureDate).toLocaleTimeString('en-US', {
+                              {new Date(flight.departureDateTime || flight.departureDate).toLocaleTimeString('en-US', {
                                 hour: '2-digit',
                                 minute: '2-digit',
                               })}
                             </div>
                             <div className="text-xs text-gray-400">
-                              {new Date(flight.departureDate).toLocaleDateString()}
+                              {new Date(flight.departureDateTime || flight.departureDate).toLocaleDateString()}
                             </div>
                           </div>
 
                           {/* Duration */}
                           <div className="flex-1 flex flex-col items-center">
-                            <div className="text-sm text-gray-500 mb-1">{flight.duration}</div>
+                            <div className="text-sm text-gray-500 mb-1">{flight.duration || 'N/A'}</div>
                             <div className="w-full h-0.5 bg-gray-300 relative">
                               <ArrowRight className="absolute -top-2.5 left-1/2 -translate-x-1/2 h-5 w-5 text-primary" />
                             </div>
@@ -285,13 +285,13 @@ export default function FlightSearch() {
                           <div className="text-center">
                             <div className="text-2xl font-bold">{flight.destination}</div>
                             <div className="text-sm text-gray-500">
-                              {new Date(flight.arrivalDate).toLocaleTimeString('en-US', {
+                              {new Date(flight.arrivalDateTime || flight.arrivalDate).toLocaleTimeString('en-US', {
                                 hour: '2-digit',
                                 minute: '2-digit',
                               })}
                             </div>
                             <div className="text-xs text-gray-400">
-                              {new Date(flight.arrivalDate).toLocaleDateString()}
+                              {new Date(flight.arrivalDateTime || flight.arrivalDate).toLocaleDateString()}
                             </div>
                           </div>
                         </div>
@@ -309,7 +309,7 @@ export default function FlightSearch() {
                         <div className="text-right">
                           <div className="text-sm text-gray-500">Total Price</div>
                           <div className="text-3xl font-bold text-primary">
-                            {formatCurrency(flight.totalPrice)}
+                            {formatCurrency(flight.totalPrice || flight.totalFare || 0)}
                           </div>
                           <div className="text-xs text-gray-400">{flight.currency}</div>
                         </div>

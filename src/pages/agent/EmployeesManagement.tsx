@@ -28,7 +28,7 @@ export default function EmployeesManagement() {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState<'AGENT_USER' | 'AGENT_MANAGER'>('AGENT_USER')
+  const [role, setRole] = useState<'EMPLOYEE'>('EMPLOYEE')
 
   useEffect(() => {
     loadEmployees()
@@ -48,7 +48,7 @@ export default function EmployeesManagement() {
     setLastName('')
     setEmail('')
     setPassword('')
-    setRole('AGENT_USER')
+    setRole('EMPLOYEE')
     setSelectedEmployee(null)
   }
 
@@ -75,7 +75,7 @@ export default function EmployeesManagement() {
     setFirstName(employee.firstName)
     setLastName(employee.lastName)
     setEmail(employee.email)
-    setRole(employee.role as 'AGENT_USER' | 'AGENT_MANAGER')
+    setRole(employee.role as 'EMPLOYEE')
     setShowEditDialog(true)
   }
 
@@ -195,13 +195,13 @@ export default function EmployeesManagement() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="role">Role *</Label>
-                <Select value={role} onValueChange={(val) => setRole(val as 'AGENT_USER' | 'AGENT_MANAGER')}>
+                <Select value={role} onValueChange={(val) => setRole(val as 'EMPLOYEE')}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="AGENT_USER">Agent User</SelectItem>
-                    <SelectItem value="AGENT_MANAGER">Agent Manager</SelectItem>
+                    <SelectItem value="EMPLOYEE">EMPLOYEE</SelectItem>
+                    {/*<SelectItem value="AGENT_MANAGER">Agent Manager</SelectItem>*/}
                   </SelectContent>
                 </Select>
               </div>
@@ -384,13 +384,13 @@ export default function EmployeesManagement() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="editRole">Role *</Label>
-              <Select value={role} onValueChange={(val) => setRole(val as 'AGENT_USER' | 'AGENT_MANAGER')}>
+              <Select value={role} onValueChange={(val) => setRole(val as 'EMPLOYEE')}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="AGENT_USER">Agent User</SelectItem>
-                  <SelectItem value="AGENT_MANAGER">Agent Manager</SelectItem>
+                  <SelectItem value="EMPLOYEE">EMPLOYEE</SelectItem>
+                  {/*<SelectItem value="AGENT_MANAGER"></SelectItem>*/}
                 </SelectContent>
               </Select>
             </div>

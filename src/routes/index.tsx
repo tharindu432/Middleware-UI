@@ -16,9 +16,15 @@ import CreditApprovals from '@/pages/admin/CreditApprovals'
 import SystemSettings from '@/pages/admin/SystemSettings'
 import AuditLogs from '@/pages/admin/AuditLogs'
 import Reports from '@/pages/admin/Reports'
+import AdminBookingsManagement from '@/pages/admin/BookingsManagement'
+import AdminTicketsManagement from '@/pages/admin/TicketsManagement'
 
 // Agent Pages
 import FlightSearch from '@/pages/agent/FlightSearch'
+import BookFlight from '@/pages/agent/BookFlight'
+import MyBookings from '@/pages/agent/MyBookings'
+import IssueTicket from '@/pages/agent/IssueTicket'
+import MyTickets from '@/pages/agent/MyTickets'
 import BookingsManagement from '@/pages/agent/BookingsManagement'
 import TicketsManagement from '@/pages/agent/TicketsManagement'
 import CreditManagement from '@/pages/agent/CreditManagement'
@@ -29,6 +35,7 @@ import AgentProfile from '@/pages/agent/Profile'
 
 // Employee Pages
 import EmployeeFlightSearch from '@/pages/employee/FlightSearch'
+import EmployeeBookFlight from '@/pages/employee/BookFlight'
 // @ts-ignore
 import EmployeeBookings from '@/pages/employee/Bookings'
 // @ts-ignore
@@ -74,6 +81,8 @@ const AppRoutes = () => {
       >
         <Route path="dashboard" element={<AdminDashboard />} />
         <Route path="agents" element={<AgentsManagement />} />
+        <Route path="bookings" element={<AdminBookingsManagement />} />
+        <Route path="tickets" element={<AdminTicketsManagement />} />
         <Route path="credit-approvals" element={<CreditApprovals />} />
         <Route path="settings" element={<SystemSettings />} />
         <Route path="audit-logs" element={<AuditLogs />} />
@@ -91,6 +100,10 @@ const AppRoutes = () => {
       >
         <Route path="dashboard" element={<AgentDashboard />} />
         <Route path="flights" element={<FlightSearch />} />
+        <Route path="book-flight" element={<BookFlight />} />
+        <Route path="my-bookings" element={<MyBookings />} />
+        <Route path="issue-ticket" element={<IssueTicket />} />
+        <Route path="my-tickets" element={<MyTickets />} />
         <Route path="bookings" element={<BookingsManagement />} />
         <Route path="tickets" element={<TicketsManagement />} />
         <Route path="credit" element={<CreditManagement />} />
@@ -111,6 +124,7 @@ const AppRoutes = () => {
       >
         <Route path="dashboard" element={<EmployeeDashboard />} />
         <Route path="flights" element={<EmployeeFlightSearch />} />
+        <Route path="book-flight" element={<EmployeeBookFlight />} />
         <Route path="bookings" element={<EmployeeBookings />} />
         <Route path="tickets" element={<EmployeeTickets />} />
       </Route>
