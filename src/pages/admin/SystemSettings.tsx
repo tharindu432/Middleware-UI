@@ -1,5 +1,5 @@
 import { useState } from 'react'
-// @ts-ignore
+
 import { useAdmin } from '@/hooks/useAdmin'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'

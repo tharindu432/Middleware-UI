@@ -18,6 +18,7 @@ import AuditLogs from '@/pages/admin/AuditLogs'
 import Reports from '@/pages/admin/Reports'
 import AdminBookingsManagement from '@/pages/admin/BookingsManagement'
 import AdminTicketsManagement from '@/pages/admin/TicketsManagement'
+import AdminInvoices from '@/pages/admin/Invoices'
 
 // Agent Pages
 import FlightSearch from '@/pages/agent/FlightSearch'
@@ -36,9 +37,9 @@ import AgentProfile from '@/pages/agent/Profile'
 // Employee Pages
 import EmployeeFlightSearch from '@/pages/employee/FlightSearch'
 import EmployeeBookFlight from '@/pages/employee/BookFlight'
-// @ts-ignore
+
 import EmployeeBookings from '@/pages/employee/Bookings'
-// @ts-ignore
+
 import EmployeeTickets from '@/pages/employee/Tickets'
 
 const AppRoutes = () => {
@@ -83,6 +84,7 @@ const AppRoutes = () => {
         <Route path="agents" element={<AgentsManagement />} />
         <Route path="bookings" element={<AdminBookingsManagement />} />
         <Route path="tickets" element={<AdminTicketsManagement />} />
+        <Route path="invoices" element={<AdminInvoices />} />
         <Route path="credit-approvals" element={<CreditApprovals />} />
         <Route path="settings" element={<SystemSettings />} />
         <Route path="audit-logs" element={<AuditLogs />} />

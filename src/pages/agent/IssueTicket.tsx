@@ -74,8 +74,6 @@ export default function IssueTicket() {
 
   const totalTicketAmount = booking.totalAmount
 
-  // @ts-ignore
-    // @ts-ignore
     return (
     <div className="space-y-6">
       <div>

@@ -5,11 +5,11 @@ import {Input} from '@/components/ui/input'
 import {Label} from '@/components/ui/label'
 import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card'
 import {Badge} from '@/components/ui/badge'
-// @ts-ignore
+
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger} from '@/components/ui/dialog'
-// @ts-ignore
+
 import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from '@/components/ui/table'
-// @ts-ignore
+
 import {Textarea} from '@/components/ui/textarea'
 import {Wallet, TrendingUp, TrendingDown, Plus, History, DollarSign, ArrowUpCircle, ArrowDownCircle} from 'lucide-react'
 import {CreditTransaction} from '@/types'

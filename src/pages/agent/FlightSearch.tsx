@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-// @ts-ignore
+
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Search, Plane, Users, ArrowRight } from 'lucide-react'
 import { FlightResponse } from '@/types'
@@ -56,10 +56,7 @@ export default function FlightSearch() {
       })
       setSearchResults(results)
       setShowResults(true)
-      if (results.length === 0) {
-        // @ts-ignore
-          toast.info('No flights found for your search criteria')
-      }
+
     } catch (error) {
       toast.error('Failed to search flights. Please try again.')
     }

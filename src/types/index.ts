@@ -195,6 +195,16 @@ export interface CreditTopupRequest {
 }
 
 // Invoice Types
+export interface InvoiceLineResponse {
+  invoiceLineId: string
+  ticketId?: string
+  ticketNumber?: string
+  description?: string
+  amount: number
+  paidAmount: number
+  status: 'UNPAID' | 'PARTIALLY_PAID' | 'PAID'
+}
+
 export interface InvoiceResponse {
   invoiceId: string
   invoiceNumber: string
@@ -202,9 +212,10 @@ export interface InvoiceResponse {
   agentId: string
   totalAmount: number
   paidAmount: number
-  status: string
+  status: 'PENDING' | 'PARTIALLY_PAID' | 'PAID' | 'OVERDUE' | 'CANCELLED'
   dueDate: string
   createdAt: string
+  lines?: InvoiceLineResponse[]
 }
 
 // Payment Types

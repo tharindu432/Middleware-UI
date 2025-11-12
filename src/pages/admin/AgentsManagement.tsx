@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react'
 import { useAgents } from '@/hooks/useAgents'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-// @ts-ignore
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-// @ts-ignore
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Label } from '@/components/ui/label'
 import { Plus, Search, Edit, Trash2 } from 'lucide-react'

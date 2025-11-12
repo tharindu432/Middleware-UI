@@ -14,6 +14,7 @@ export default function AdminLayout() {
     { name: 'Agents', href: '/admin/agents', icon: 'Users' },
     { name: 'Bookings', href: '/admin/bookings', icon: 'Calendar' },
     { name: 'Tickets', href: '/admin/tickets', icon: 'Ticket' },
+    { name: 'Invoices', href: '/admin/invoices', icon: 'Receipt' },
     { name: 'Credit Approvals', href: '/admin/credit-approvals', icon: 'CreditCard' },
     { name: 'Reports', href: '/admin/reports', icon: 'BarChart' },
     { name: 'Audit Logs', href: '/admin/audit-logs', icon: 'FileText' },

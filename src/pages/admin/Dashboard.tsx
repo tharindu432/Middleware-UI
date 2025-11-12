@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { StatCard } from '@/components/StatCard'
-// @ts-ignore
 import { useAdmin } from '@/hooks/useAdmin'
 import { Users, DollarSign, Plane, TrendingUp } from 'lucide-react'
 import { DashboardStatistics } from '@/types'
@@ -13,7 +12,6 @@ export default function AdminDashboard() {
   useEffect(() => {
     loadDashboard()
   }, [])
-
   const loadDashboard = async () => {
     try {
       const data = await getDashboardStats()

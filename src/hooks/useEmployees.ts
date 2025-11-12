@@ -101,3 +101,6 @@ export const useEmployees = () => {
     resetEmployeePassword,
   }
 }
+
+export default useEmployees;
+

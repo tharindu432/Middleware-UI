@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-// @ts-ignore
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-// @ts-ignore
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Search, Eye } from 'lucide-react'
 import axiosInstance from '@/lib/axios'

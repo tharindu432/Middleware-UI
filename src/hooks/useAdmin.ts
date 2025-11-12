@@ -114,6 +114,148 @@ export const useAdmin = () => {
     }
   }
 
+  // Invoicing - Admin triggered generation
+  const getAdminInvoices = async () => {
+    setLoading(true)
+    try {
+      const response = await axiosInstance.get('/admin/invoices')
+      const data = (response as any).data
+      return Array.isArray(data) ? data : (data && (data as any).data) || []
+    } catch (error) {
+      console.error('Error fetching admin invoices:', error)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const generateInvoices = async (date?: string) => {
+    setLoading(true)
+    try {
+      const params: any = {}
+      if (date) params.date = date
+      const response = await axiosInstance.post<ApiResponse<any[]>>('/admin/invoices/generate', undefined, { params })
+      const list = response.data.data || []
+      if (list.length > 0) {
+        toast.success(`Generated ${list.length} invoice${list.length > 1 ? 's' : ''}`)
+      } else {
+        toast.success('No invoices to generate for the selected period')
+      }
+      return list
+    } catch (error) {
+      console.error('Error generating invoices:', error)
+      toast.error('Failed to generate invoices')
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Email logs & actions
+  const getInvoiceEmailLogs = async () => {
+    setLoading(true)
+    try {
+      const response = await axiosInstance.get('/admin/invoices/email-logs')
+      return (response as any).data
+    } catch (error) {
+      console.error('Error fetching invoice email logs:', error)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const getInvoiceEmailLogsByInvoice = async (invoiceId: string) => {
+    setLoading(true)
+    try {
+      const response = await axiosInstance.get(`/admin/invoices/${invoiceId}/email-logs`)
+      return (response as any).data
+    } catch (error) {
+      console.error('Error fetching email logs by invoice:', error)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const resendInvoiceEmail = async (invoiceId: string) => {
+    setLoading(true)
+    try {
+      const response = await axiosInstance.post<ApiResponse>(`/admin/invoices/${invoiceId}/resend`)
+      const msg = (response.data && (response.data as any).message) || 'Resend attempted'
+      toast.success(msg)
+      return response.data
+    } catch (error) {
+      console.error('Error resending invoice email:', error)
+      toast.error('Failed to resend invoice email')
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const runSchedulerFirstHalf = async () => {
+    setLoading(true)
+    try {
+      const response = await axiosInstance.post<ApiResponse>('/admin/invoices/schedule/run-first-half')
+      toast.success((response.data as any)?.message || 'Triggered first-half schedule')
+    } catch (error) {
+      toast.error('Failed to trigger first-half schedule')
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const runSchedulerSecondHalf = async () => {
+    setLoading(true)
+    try {
+      const response = await axiosInstance.post<ApiResponse>('/admin/invoices/schedule/run-second-half')
+      toast.success((response.data as any)?.message || 'Triggered second-half schedule')
+    } catch (error) {
+      toast.error('Failed to trigger second-half schedule')
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Agents list for admin operations
+  const getAllAgents = async () => {
+    setLoading(true)
+    try {
+      const response = await axiosInstance.get('/admin/agents')
+      return response.data as any
+    } catch (error) {
+      console.error('Error fetching agents:', error)
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Invoicing - Admin generate for a specific agent and date range
+  const generateAgentInvoice = async (agentId: string, startDate: string, endDate: string) => {
+    setLoading(true)
+    try {
+      const params: any = { agentId, startDate, endDate }
+      const response = await axiosInstance.post('/admin/invoices/generate/agent', undefined, { params })
+      const invoice = (response.data && (response.data as any).data) || null
+      if (invoice) {
+        toast.success('Invoice generated successfully')
+      } else {
+        toast.success('No eligible tickets found for the specified period')
+      }
+      return invoice
+    } catch (error) {
+      console.error('Error generating agent invoice:', error)
+      toast.error('Failed to generate invoice')
+      throw error
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return {
     loading,
     dashboardStats,
@@ -126,5 +268,15 @@ export const useAdmin = () => {
     getAuditLogs,
     getSystemSettings,
     updateSystemSettings,
+    getAdminInvoices,
+    generateInvoices,
+    getAllAgents,
+    generateAgentInvoice,
+    // new email log APIs
+    getInvoiceEmailLogs,
+    getInvoiceEmailLogsByInvoice,
+    resendInvoiceEmail,
+    runSchedulerFirstHalf,
+    runSchedulerSecondHalf,
   }
 }

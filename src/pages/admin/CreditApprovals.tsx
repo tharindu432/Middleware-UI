@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-// @ts-ignore
 import { useAdmin } from '@/hooks/useAdmin'
 import { Button } from '@/components/ui/button'
-// @ts-ignore
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
