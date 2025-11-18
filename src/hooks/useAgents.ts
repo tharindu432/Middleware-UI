@@ -21,6 +21,7 @@ export const useAgents = () => {
     } finally {
       setLoading(false)
     }
+
   }
 
   const updateAgentProfile = async (profileData: AgentRequest) => {

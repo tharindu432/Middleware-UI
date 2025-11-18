@@ -10,11 +10,18 @@ export const usePayments = () => {
   const makePayment = async (paymentData: PaymentRequest) => {
     setLoading(true)
     try {
-      const response = await axiosInstance.post<PaymentResponse>('/payments/pay', paymentData)
+      // Ensure payment method matches backend enum naming
+      const payload: PaymentRequest = {
+        ...paymentData,
+        paymentMethod: (paymentData.paymentMethod || '').toUpperCase(),
+      } as any
+
+      const response = await axiosInstance.post<PaymentResponse>('/payments/pay', payload)
       toast.success('Payment processed successfully!')
       return response.data
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error making payment:', error)
+      // Re-throw so callers can show the message
       throw error
     } finally {
       setLoading(false)
